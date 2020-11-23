@@ -29,7 +29,7 @@
 switch可以有三类openflow交换机：kernel内核状态、user用户态以及ovsk是Open vSwith状态。当然kerner和ovsk的性能和吞吐量会高一些，通过运行sudo mn --switch ovsk --test iperf进行iperf的测试得知。
 
 	--host:
-	
+	 
 host可以写成 h1,h2
 
 #### 2.topo
@@ -94,5 +94,76 @@ class MyTopo( Topo ):
 topos = { 'mytopo': ( lambda: MyTopo() ) }
 ```
 
+# 完整的启动命令参考文档
+
+```
+Options:
+  -h, --help            显示帮助信息
+ 
+  --switch=SWITCH       指定交换机类型
+                        default|ivs|lxbr|ovs|ovsbr|ovsk|user[,param=value...]
+                        ovs=OVSSwitch default=OVSSwitch ovsk=OVSSwitch
+                        lxbr=LinuxBridge user=UserSwitch ivs=IVSSwitch
+                        ovsbr=OVSBridge
+ 
+ 
+  --host=HOST           #用于选择主机的类型
+                        cfs|proc|rt[,param=value...]
+                        rt=CPULimitedHost{'sched': 'rt'} proc=Host
+                        cfs=CPULimitedHost{'sched': 'cfs'}
+ 
+  --controller=CONTROLLER 控制器种类
+                        default|none|nox|ovsc|ref|remote|ryu[,param=value...]
+                        ovsc=OVSController none=NullController
+                        remote=RemoteController default=DefaultController
+                        nox=NOX ryu=Ryu ref=Controller
+ 
+ 
+  --link=LINK           链路的类型
+                        default|ovs|tc|tcu[,param=value...] default=Link
+                        ovs=OVSLink tcu=TCULink tc=TCLink
+ 
+  --topo=TOPO           指定网络拓扑的类型   
+                        linear|minimal|reversed|single|torus|tree[,param=value
+                        ...] linear=LinearTopo torus=TorusTopo tree=TreeTopo
+                        single=SingleSwitchTopo
+                        reversed=SingleSwitchReversedTopo minimal=MinimalTopo
+ 
+  -c, --clean           清除和退出
+                            
+  --custom=CUSTOM       定制网络拓扑的py文件
+ 
+  --test=TEST           测试
+                        none|build|all|iperf|pingpair|iperfudp|pingall
+ 
+  -x, --xterms          打开终端节点
+ 
+  -i IPBASE, --ipbase=IPBASE 设置起始ip
+                        
+  --mac                 自动设置主机mac,保证mac简单、易读，一般都尽量小
+ 
+  --arp                 设置所有对ARP入口
+ 
+ 
+  --innamespace         sw and ctrl in namespace?
+ 
+  --listenport=LISTENPORT 设置监听端口
+                        
+  --nolistenport        不监听端口
+ 
+  --pin                 pin hosts to CPU cores (requires --host cfs or --host
+                        rt)
+  --nat                 [option=val...] adds a NAT to the topology that
+                        connects Mininet hosts to the physical network.
+                        Warning: This may route any traffic on the machine
+                        that uses Mininet's IP subnet into the Mininet
+                        network. If you need to change Mininet's IP subnet,
+                        see the --ipbase option.
+ 
+  --cluster=server1,server2...
+                        run on multiple servers (experimental!)
+  --placement=block|random
+                        node placement for --cluster (experimental!)
+```
 ------------
 没了
