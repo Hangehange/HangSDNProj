@@ -1,2 +1,0 @@
-# HangSDNProj
-SDN development repository
